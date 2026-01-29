@@ -1,5 +1,5 @@
-import { useProductStore } from "../stores/VAHStore";
-import { transformBackendResponse } from "./transformBackendResponse";
+import { useProductStore } from "../stores/VAHStore.js";
+import { transformBackendResponse } from "./transformBackendResponse.js";
 
 export async function fetchUppgiftInformation(
   kundbehovsflodeId: string,
@@ -8,7 +8,7 @@ export async function fetchUppgiftInformation(
   const store = useProductStore();
 
   try {
-    const url = `/regel/${regeltyp}/${kundbehovsflodeId}`;
+    const url = `/api/bff/regel/${regeltyp}/${kundbehovsflodeId}`;
     const response = await fetch(url);
 
     if (!response.ok) {

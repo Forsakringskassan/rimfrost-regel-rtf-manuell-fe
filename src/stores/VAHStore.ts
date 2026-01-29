@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { GetDataResponse } from "../types";
+import type { GetDataResponse } from "../types.js";
 
 export const useProductStore = defineStore("VAHStore", {
   state: () => ({
