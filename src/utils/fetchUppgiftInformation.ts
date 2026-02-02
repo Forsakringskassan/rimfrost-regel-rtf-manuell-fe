@@ -8,6 +8,7 @@ export async function fetchUppgiftInformation(
   const store = useProductStore();
 
   try {
+    //Changed fetch from bff instead of backend
     const url = `/api/bff/regel/${regeltyp}/${kundbehovsflodeId}`;
     const response = await fetch(url);
 
@@ -23,7 +24,7 @@ export async function fetchUppgiftInformation(
       }
       throw new Error(errorMessage);
     }
-
+    
     const contentType = response.headers.get("content-type");
 
     if (!contentType || !contentType.includes("application/json")) {

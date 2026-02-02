@@ -14,6 +14,7 @@ export async function setKlar() {
 async function patchKundbehovsflode(id: string) {
   const store = useProductStore();
   try {
+    //Changed fetch from bff instead of backend
     const url = `/api/bff/regel/${store.regeltyp}/${store.uppgift?.kundbehovsflodeId}`;
     const response = await fetch(url, {
       method: "PATCH",
