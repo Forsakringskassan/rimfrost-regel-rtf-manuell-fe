@@ -2,7 +2,7 @@ import { resolve } from "node:path";
 import { URL, fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
-import federation from "@originjs/vite-plugin-federation";
+import { federation } from "@module-federation/vite";
 import vue from "@vitejs/plugin-vue";
 import vueDevTools from "vite-plugin-vue-devtools";
 
@@ -14,12 +14,16 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     federation({
-      name: "remote_app",
+      name: "remoteApp",
       filename: "remoteEntry.js",
       exposes: {
         "./VardAvHusdjur": "./src/components/VardAvHusdjur.vue",
       },
-      shared: ["vue", "@fkui/vue", "pinia"],
+      shared: {
+        vue: { singleton: true },
+        "@fkui/vue": { singleton: true },
+        pinia: { singleton: true },
+      },
     }),
   ],
   resolve: {

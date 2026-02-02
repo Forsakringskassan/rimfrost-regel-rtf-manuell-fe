@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { FStaticField, FTooltip } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
 import { fetchUppgiftInformation } from "../utils/fetchUppgiftInformation";
@@ -10,15 +10,18 @@ const { kundbehovsflodeId, regeltyp } = defineProps<{
   regeltyp: string | null;
 }>();
 
-const store = useProductStore();
-fetchUppgiftInformation(kundbehovsflodeId ?? "", regeltyp ?? "");
-store.setRegeltyp(regeltyp ?? "");
+let store: ReturnType<typeof useProductStore> | null = null;
+
+const storeData = computed(() => store?.uppgift);
 
 onMounted(() => {
   console.log(
     "VardAvHusdjur mounted with kundbehovsflodeId:",
     kundbehovsflodeId,
   );
+  store = useProductStore();
+  fetchUppgiftInformation(kundbehovsflodeId ?? "", regeltyp ?? "");
+  store.setRegeltyp(regeltyp ?? "");
 });
 </script>
 
@@ -50,7 +53,7 @@ onMounted(() => {
         <template #label><span>Kund</span></template>
         <template #default>
           <span>{{
-            `${store.uppgift?.kund.fornamn} ${store.uppgift?.kund.efternamn}`
+            `${storeData?.kund.fornamn ?? ''} ${storeData?.kund.efternamn ?? ''}`
           }}</span>
         </template>
       </f-static-field>
@@ -58,7 +61,7 @@ onMounted(() => {
         <template #label><span>Organisationsnamn</span></template>
         <template #default>
           <span>{{
-            store.uppgift?.kund.anstallning?.organisationsnamn ?? "Missing"
+            storeData?.kund.anstallning?.organisationsnamn ?? "Missing"
           }}</span>
         </template>
       </f-static-field>
