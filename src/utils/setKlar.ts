@@ -1,5 +1,5 @@
 /* eslint-disable camelcase -- API response fields use snake_case naming convention */
-import { useProductStore } from "../stores/VAHStore";
+import { useProductStore } from "../stores/VAHStore.js";
 
 export async function setKlar() {
   const store = useProductStore();
@@ -14,7 +14,8 @@ export async function setKlar() {
 async function patchKundbehovsflode(id: string) {
   const store = useProductStore();
   try {
-    const url = `/regel/${store.regeltyp}/${store.uppgift?.kundbehovsflodeId}`;
+    //Changed fetch from bff instead of backend
+    const url = `/api/${store.regeltyp}/${store.uppgift?.kundbehovsflodeId}`;
     const response = await fetch(url, {
       method: "PATCH",
       headers: {

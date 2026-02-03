@@ -7,7 +7,7 @@ import type {
   KonEnum,
   Kund,
   Lon,
-} from "../types";
+} from "../types.js";
 
 export function transformBackendResponse(
   backendData: BackendResponse,
