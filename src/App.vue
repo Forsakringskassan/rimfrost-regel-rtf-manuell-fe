@@ -2,7 +2,7 @@
 import VardAvHusdjur from './components/VardAvHusdjur.vue';
 
 const regeltyp = 'regel/rtf-manuell';
-const kundbehovsflodeId = '31be62fa-37bd-4a85-8e9b-fe399530e8e8';
+const kundbehovsflodeId = '48dc053a-1ec0-42fd-b65b-396117a9437d';
 </script>
 
 <template><div><VardAvHusdjur :regeltyp :kundbehovsflode-id /></div></template>

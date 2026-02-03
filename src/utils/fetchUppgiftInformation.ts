@@ -12,8 +12,9 @@ console.log("fetchUppgiftInformation called with:", {
 });
 
   try {
-    //Changed fetch from bff instead of backend
-    const url = `/api/${regeltyp}/${kundbehovsflodeId}`;
+    // Split regeltyp by slash (e.g., 'regel/rtf-manuell' -> ['regel', 'rtf-manuell'])
+    const parts = regeltyp.split('/');
+    const url = `/api/${parts.join('/')}/${kundbehovsflodeId}`;
     const response = await fetch(url);
 
     const contentType = response.headers.get("content-type");
