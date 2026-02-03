@@ -36,7 +36,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/regel": "http://localhost:8890",
+      "/api": {
+        target: "http://localhost:9002",
+        changeOrigin: true,
+      },
     },
     port: 3032,
   },
