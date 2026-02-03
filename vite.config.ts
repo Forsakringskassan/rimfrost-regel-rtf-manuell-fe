@@ -2,7 +2,7 @@ import { resolve } from "node:path";
 import { URL, fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
-import { federation } from "@module-federation/vite";
+import federation from "@originjs/vite-plugin-federation";
 import vue from "@vitejs/plugin-vue";
 import vueDevTools from "vite-plugin-vue-devtools";
 
@@ -19,11 +19,7 @@ export default defineConfig({
       exposes: {
         "./VardAvHusdjur": "./src/components/VardAvHusdjur.vue",
       },
-      shared: {
-        vue: { singleton: true },
-        "@fkui/vue": { singleton: true },
-        pinia: { singleton: true },
-      },
+      shared: ["vue", "@fkui/vue", "pinia"],
     }),
   ],
   resolve: {
