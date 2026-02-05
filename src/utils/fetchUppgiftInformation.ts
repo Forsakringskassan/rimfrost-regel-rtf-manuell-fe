@@ -14,7 +14,7 @@ console.log("fetchUppgiftInformation called with:", {
   try {
     // Split regeltyp by slash (e.g., 'regel/rtf-manuell' -> ['regel', 'rtf-manuell'])
     const parts = regeltyp.split('/');
-    const url = `/api/${parts.join('/')}/${kundbehovsflodeId}`;
+    const url = `${import.meta.env.VITE_BFF_URL}/api/${parts.join('/')}/${kundbehovsflodeId}`;
     const response = await fetch(url);
 
     const contentType = response.headers.get("content-type");
