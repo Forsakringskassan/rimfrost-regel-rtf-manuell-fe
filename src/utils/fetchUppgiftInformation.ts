@@ -12,8 +12,10 @@ console.log("fetchUppgiftInformation called with:", {
 });
 
   try {
-    // Split regeltyp by slash (e.g., 'regel/rtf-manuell' -> ['regel', 'rtf-manuell'])
-    const parts = regeltyp.split('/');
+    // Normalize regeltyp to remove leading slash if present, then split
+    // Handles both 'regel/rtf-manuell' and '/regel/rtf-manuell' 
+    const normalizedRegeltyp = regeltyp.startsWith('/') ? regeltyp.slice(1) : regeltyp;
+    const parts = normalizedRegeltyp.split('/');
     const url = `${import.meta.env.VITE_BFF_URL}/api/${parts.join('/')}/${kundbehovsflodeId}`;
     const response = await fetch(url);
 
