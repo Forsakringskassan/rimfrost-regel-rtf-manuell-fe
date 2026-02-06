@@ -5,8 +5,11 @@ const props = defineProps<{
   regeltyp: string;
   kundbehovsflodeId: string;
 }>();
+
+const regeltyp = props.regeltyp || import.meta.env.VITE_MOCK_REGELTYP;
+const kundbehovsflodeId = props.kundbehovsflodeId || import.meta.env.VITE_MOCK_KUNDBEHOVSFLODE_ID;
 </script>
 
-<template><div><VardAvHusdjur :regeltyp="props.regeltyp" :kundbehovsflode-id="props.kundbehovsflodeId" /></div></template>
+<template><div><VardAvHusdjur :regeltyp="regeltyp" :kundbehovsflode-id="kundbehovsflodeId" /></div></template>
 
 <style scoped></style>
