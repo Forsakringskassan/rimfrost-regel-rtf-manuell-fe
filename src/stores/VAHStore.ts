@@ -7,6 +7,8 @@ export const useProductStore = defineStore("VAHStore", {
     regeltyp: "",
     loading: false,
     error: null as string | null,
+    uppgiftsbeskrivning: "",
+    descriptionLoading: false,
   }),
   actions: {
     setUppgift(uppgift: GetDataResponse | null) {
@@ -24,6 +26,12 @@ export const useProductStore = defineStore("VAHStore", {
     },
     clearError() {
       this.error = null;
+    },
+    setUppgiftsbeskrivning(beskrivning: string) {
+      this.uppgiftsbeskrivning = beskrivning;
+    },
+    setDescriptionLoading(loading: boolean) {
+      this.descriptionLoading = loading;
     },
   },
 });
