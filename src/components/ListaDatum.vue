@@ -1,13 +1,28 @@
 <script setup lang="ts">
-import { reactive, watch } from "vue";
+import { reactive, useTemplateRef, watch } from "vue";
 import { FButton, FFieldset, FRadioField, FValidationForm } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
 import type { Ersattning } from "../types";
-import { setKlar } from "../utils/setKlar";
+import { setDone } from "../utils/setDone";
 
 const store = useProductStore();
 
 const selections = reactive<Record<string, "JA" | "NEJ" | undefined>>({});
+const submitButton = useTemplateRef("submitButton");
+
+function scrollToSubmitButton() {
+  if (submitButton.value) {
+    submitButton.value.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+function approveAll() {
+  if (store.uppgift?.ersattning) {
+    store.uppgift.ersattning.forEach((item: Ersattning) => {
+      selections[item.ersattningId] = "JA";
+    });
+  }
+}
 
 watch(
   () => store.uppgift?.ersattning,
@@ -24,7 +39,15 @@ watch(
 );
 
 function handleSubmit() {
-  setKlar();
+  // Sync selections to store.uppgift.ersattning before sending
+  if (store.uppgift?.ersattning) {
+    store.uppgift.ersattning.forEach((item) => {
+      if (selections[item.ersattningId]) {
+        item.beslutsutfall = selections[item.ersattningId];
+      }
+    });
+  }
+  setDone();
 }
 </script>
 
@@ -34,7 +57,7 @@ function handleSubmit() {
       <template #error-message>
         <p>Du har glömt fylla i något. Gå till fältet som är markerat.</p>
       </template>
-
+      <button @click="scrollToSubmitButton" type="button">Scrolla till klarmarkeringsknapp</button>
       <div
         v-for="item in store.uppgift?.ersattning"
         :key="item.ersattningId"
@@ -86,7 +109,10 @@ function handleSubmit() {
         </f-fieldset>
       </div>
 
-      <f-button type="submit">Klarmarkera</f-button>
+      <section ref="submitButton">
+        <button @click="approveAll">Sätt alla som godkända</button>
+        <f-button type="submit">Klarmarkera</f-button>
+      </section>
     </f-validation-form>
   </div>
 </template>
