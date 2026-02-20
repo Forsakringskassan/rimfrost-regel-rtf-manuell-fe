@@ -1,4 +1,5 @@
 import { useProductStore } from "../stores/VAHStore.js";
+import { handleSlashes } from "./handleSlashes.js";
 import { transformBackendResponse } from "./transformBackendResponse.js";
 
 export async function fetchUppgiftInformation(
@@ -6,21 +7,12 @@ export async function fetchUppgiftInformation(
   regeltyp: string,
 ) {
   const store = useProductStore();
-console.log("fetchUppgiftInformation called with:", {
-  kundbehovsflodeId,
-  regeltyp,
-});
 
   try {
-    // Normalize regeltyp to remove leading slash if present, then split
-    // Handles both 'regel/rtf-manuell' and '/regel/rtf-manuell' 
-    const normalizedRegeltyp = regeltyp.startsWith('/') ? regeltyp.slice(1) : regeltyp;
-    const parts = normalizedRegeltyp.split('/');
-    const url = `${import.meta.env.VITE_BFF_URL}/api/${parts.join('/')}/${kundbehovsflodeId}`;
+    const url = `${import.meta.env.VITE_BFF_URL}/api/${handleSlashes(regeltyp).join('/')}/${kundbehovsflodeId}`;
     const response = await fetch(url);
 
     const contentType = response.headers.get("content-type");
-    console.log(`Response content-type: ${contentType}`);
 
     if (!response.ok) {
       // Try to get the error message from the response body

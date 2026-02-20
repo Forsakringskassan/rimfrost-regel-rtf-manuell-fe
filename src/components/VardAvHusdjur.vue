@@ -13,11 +13,6 @@ const { kundbehovsflodeId, regeltyp } = defineProps<{
 const store = useProductStore();
 
 onMounted(() => {
-  console.log(
-    "VardAvHusdjur mounted with kundbehovsflodeId:",
-    kundbehovsflodeId,
-  );
-  console.log("Initial store.uppgift:", store.uppgift);
   fetchUppgiftInformation(kundbehovsflodeId ?? "", regeltyp ?? "");
   store.setRegeltyp(regeltyp ?? "");
 });
