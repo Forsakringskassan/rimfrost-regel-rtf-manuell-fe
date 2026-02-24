@@ -24,10 +24,8 @@ const handleTooltipOpen = () => {
 };
 
 onMounted(() => {
-  console.log(
-    "VardAvHusdjur mounted with kundbehovsflodeId:",
-    kundbehovsflodeId,
-  );
+  fetchUppgiftInformation(kundbehovsflodeId ?? "", regeltyp ?? "");
+  store.setRegeltyp(regeltyp ?? "");
 });
 </script>
 
