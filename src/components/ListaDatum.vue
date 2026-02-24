@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, useTemplateRef, watch } from "vue";
+import { reactive, watch } from "vue";
 import { FButton, FFieldset, FRadioField, FValidationForm } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
 import type { Ersattning } from "../types";
@@ -8,25 +8,11 @@ import { setDone } from "../utils/setDone";
 const store = useProductStore();
 
 const selections = reactive<Record<string, "JA" | "NEJ" | undefined>>({});
-const submitButton = useTemplateRef("submitButton");
-
-function scrollToSubmitButton() {
-  if (submitButton.value) {
-    submitButton.value.scrollIntoView({ behavior: "smooth" });
-  }
-}
-
-function approveAll() {
-  if (store.uppgift?.ersattning) {
-    store.uppgift.ersattning.forEach((item: Ersattning) => {
-      selections[item.ersattningId] = "JA";
-    });
-  }
-}
 
 watch(
   () => store.uppgift?.ersattning,
   (ersattning) => {
+    console.log("Uppgift ersattning changed:", ersattning);
     if (ersattning) {
       ersattning.forEach((item: Ersattning) => {
         if (item.beslutsutfall) {
@@ -57,7 +43,6 @@ function handleSubmit() {
       <template #error-message>
         <p>Du har glömt fylla i något. Gå till fältet som är markerat.</p>
       </template>
-      <button @click="scrollToSubmitButton" type="button">Scrolla till klarmarkeringsknapp</button>
       <div
         v-for="item in store.uppgift?.ersattning"
         :key="item.ersattningId"
@@ -65,6 +50,7 @@ function handleSubmit() {
       >
         <f-fieldset
           v-validation.required
+          horizontal
           :name="`arende-utfall-${String(item.ersattningId)}`"
         >
           <template #label>
@@ -110,7 +96,6 @@ function handleSubmit() {
       </div>
 
       <section ref="submitButton">
-        <button @click="approveAll">Sätt alla som godkända</button>
         <f-button type="submit">Klarmarkera</f-button>
       </section>
     </f-validation-form>
@@ -130,7 +115,18 @@ function handleSubmit() {
 }
 
 .fieldset {
-  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.fieldset__label {
+  flex: 0 0 auto;
+}
+
+.fieldset__content {
+  flex: 1;
 }
 
 .radio-group {
@@ -146,6 +142,8 @@ function handleSubmit() {
 
 .radio-button-group {
   margin: 0;
+  display: flex;
+  flex-direction: row !important;
 }
 
 .ersattning-info-container {
@@ -160,5 +158,9 @@ function handleSubmit() {
 .ersattning-info-item {
   display: flex;
   gap: 0.5rem;
+}
+
+.error-list {
+  display: none;
 }
 </style>
