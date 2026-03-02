@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watch } from "vue";
+import { reactive, ref, watch } from "vue";
 import { FButton, FFieldset, FRadioField, FValidationForm } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
 import type { Ersattning } from "../types";
@@ -8,11 +8,11 @@ import { setDone } from "../utils/setDone";
 const store = useProductStore();
 
 const selections = reactive<Record<string, "JA" | "NEJ" | undefined>>({});
+const loading = ref(false);
 
 watch(
   () => store.uppgift?.ersattning,
   (ersattning) => {
-    console.log("Uppgift ersattning changed:", ersattning);
     if (ersattning) {
       ersattning.forEach((item: Ersattning) => {
         if (item.beslutsutfall) {
@@ -33,6 +33,8 @@ function handleSubmit() {
       }
     });
   }
+
+  // TODO: Handle loading on submit
   setDone();
 }
 </script>
@@ -60,9 +62,9 @@ function handleSubmit() {
                 <span>{{ item.from }}</span
                 ><span v-if="item.from != item.tom"> - {{ item.tom }}</span>
               </div>
-              <div v-if="item.omfattningProcent" class="ersattning-info-item">
+              <div class="ersattning-info-item">
                 <p>Omfattning:</p>
-                <span>{{ item.omfattningProcent }}%</span>
+                <span>{{ item.omfattningProcent ?? 100 }}%</span>
               </div>
             </div>
           </template>
@@ -96,7 +98,7 @@ function handleSubmit() {
       </div>
 
       <section ref="submitButton">
-        <f-button type="submit">Klarmarkera</f-button>
+        <f-button type="submit" :disabled="loading">Klarmarkera</f-button>
       </section>
     </f-validation-form>
   </div>
