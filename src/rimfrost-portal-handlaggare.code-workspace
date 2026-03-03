@@ -1,0 +1,20 @@
+{
+    "folders": [
+        {
+            "name": "rimfrost-portal-handlaggare",
+            "path": "../../rimfrost-portal-handlaggare"
+        },
+        {
+            "name": "rimfrost-portal-bff",
+            "path": "../../rimfrost-portal-bff"
+        },
+        {
+            "name": "rimfrost-regel-rtf-manuell-fe",
+            "path": ".."
+        },
+        {
+            "name": "rimfrost-regel-rtf-manuell-bff",
+            "path": "../../rimfrost-regel-rtf-manuell-bff"
+        }
+    ]
+}

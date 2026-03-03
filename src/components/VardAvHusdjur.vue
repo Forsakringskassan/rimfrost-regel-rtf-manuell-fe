@@ -2,7 +2,8 @@
 import { onMounted, ref } from "vue";
 import { FStaticField, FTooltip, FLoader } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
-import { fetchUppgiftInformation, fetchUppgiftsbeskrivning } from "../utils/fetchUppgiftsbeskrivning";
+import { fetchUppgiftInformation } from "../utils/fetchUppgiftInformation";
+import { fetchUppgiftsbeskrivning } from "../utils/fetchUppgiftsbeskrivning";
 import ListaDatum from "./ListaDatum.vue";
 
 const { kundbehovsflodeId, regeltyp } = defineProps<{
@@ -13,7 +14,6 @@ const { kundbehovsflodeId, regeltyp } = defineProps<{
 const store = useProductStore();
 const isDescriptionFetched = ref(false);
 
-fetchUppgiftInformation(kundbehovsflodeId ?? "", regeltyp ?? "");
 store.setRegeltyp(regeltyp ?? "");
 
 const handleTooltipOpen = () => {

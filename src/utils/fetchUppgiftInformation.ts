@@ -7,9 +7,10 @@ export async function fetchUppgiftInformation(
   regeltyp: string,
 ) {
   const store = useProductStore();
-
+  const bffUrl = import.meta.env.VITE_BFF_URL ?? "";
+  
   try {
-    const url = `${import.meta.env.VITE_BFF_URL}/api/${handleSlashes(regeltyp).join('/')}/${kundbehovsflodeId}`;
+    const url = `${bffUrl}/api/${handleSlashes(regeltyp).join('/')}/${kundbehovsflodeId}`;
     const response = await fetch(url);
 
     const contentType = response.headers.get("content-type");
