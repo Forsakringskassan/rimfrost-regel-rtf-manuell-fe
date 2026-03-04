@@ -32,18 +32,18 @@ onMounted(() => {
 <template>
   <div>
     <f-static-field>
-      <template #label
-        >Kontrollera frånvaro från arbete</template
-      >
+      <template #label>
+        Kontrollera frånvaro från arbete
+      </template>
       <template #tooltip>
         <f-tooltip
           screen-reader-text="Läs mer om uppgiften kontrollera frånvaro från arbete"
           header-tag="h2"
-          @click="handleTooltipOpen"
+          @toggle="handleTooltipOpen"
         >
-          <template #header
-            >Läs mer om uppgiften "Kontrollera frånvaro från arbete"</template
-          >
+        <template #header>
+          Läs mer om uppgiften "Kontrollera frånvaro från arbete"
+        </template>
           <template #body>
             <span v-if="store.descriptionLoading">
               <f-loader>Vänligen vänta</f-loader>
