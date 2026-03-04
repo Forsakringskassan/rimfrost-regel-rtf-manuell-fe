@@ -14,7 +14,6 @@ const { kundbehovsflodeId, regeltyp } = defineProps<{
 const store = useProductStore();
 const isDescriptionFetched = ref(false);
 
-fetchUppgiftInformation(kundbehovsflodeId ?? "", regeltyp ?? "");
 store.setRegeltyp(regeltyp ?? "");
 
 const handleTooltipOpen = () => {
