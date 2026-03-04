@@ -2,7 +2,8 @@
 import { onMounted, ref } from "vue";
 import { FStaticField, FTooltip, FLoader } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
-import { fetchUppgiftInformation, fetchUppgiftsbeskrivning } from "../utils/fetchUppgiftsbeskrivning";
+import { fetchUppgiftInformation } from "../utils/fetchUppgiftInformation";
+import { fetchUppgiftsbeskrivning } from "../utils/fetchUppgiftsbeskrivning";
 import ListaDatum from "./ListaDatum.vue";
 
 const { kundbehovsflodeId, regeltyp } = defineProps<{
@@ -32,18 +33,18 @@ onMounted(() => {
 <template>
   <div>
     <f-static-field>
-      <template #label
-        >Kontrollera frånvaro från arbete</template
-      >
+      <template #label>
+        Kontrollera frånvaro från arbete
+      </template>
       <template #tooltip>
         <f-tooltip
           screen-reader-text="Läs mer om uppgiften kontrollera frånvaro från arbete"
           header-tag="h2"
-          @click="handleTooltipOpen"
+          @toggle="handleTooltipOpen"
         >
-          <template #header
-            >Läs mer om uppgiften "Kontrollera frånvaro från arbete"</template
-          >
+        <template #header>
+          Läs mer om uppgiften "Kontrollera frånvaro från arbete"
+        </template>
           <template #body>
             <span v-if="store.descriptionLoading">
               <f-loader>Vänligen vänta</f-loader>
