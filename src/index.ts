@@ -9,7 +9,7 @@ import AppComponent from "./App.vue";
 
 export function init(
   mount: string | Element,
-  params?: { kundbehovsflodeId?: string; regeltyp?: string },
+  params?: { handlaggningId?: string; regeltyp?: string },
 ): App {
   const container =
     typeof mount === "string" ? document.querySelector(mount) : mount;
@@ -29,7 +29,7 @@ export function init(
   });
 
   const app = createApp(AppComponent, {
-    kundbehovsflodeId: params?.kundbehovsflodeId ?? null,
+    handlaggningId: params?.handlaggningId ?? null,
     regeltyp: params?.regeltyp ?? null,
   });
 

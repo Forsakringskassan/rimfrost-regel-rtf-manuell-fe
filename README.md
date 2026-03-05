@@ -17,8 +17,8 @@ This micro-frontend operates within a larger ecosystem:
 **Integration Flow:**
 
 1. **Host Integration**: Loaded by host frontend when user selects RTF manual task
-2. **Props Received**: Gets `kundbehovsflodeId` and `regeltyp` from host
-3. **Data Fetching**: Calls Rule BFF at `/api/regel/rtf-manuell/:kundbehovsflodeId`
+2. **Props Received**: Gets `handlaggningId` and `regeltyp` from host
+3. **Data Fetching**: Calls Rule BFF at `/api/regel/rtf-manuell/:handlaggningId`
 4. **Fallback Handling**: Rule BFF handles all backend failures with mock data
 5. **State Management**: Uses Pinia store for local component state
 
