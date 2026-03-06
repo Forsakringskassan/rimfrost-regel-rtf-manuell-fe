@@ -1,5 +1,5 @@
 export interface GetDataResponse {
-  kundbehovsflodeId: string;
+  handlaggningId: string;
   kund: Kund;
   ersattning: Ersattning[];
 }
@@ -19,7 +19,7 @@ export interface Kund {
 }
 
 export interface KundData {
-  kundbehovsflodeId: string;
+  handlaggningId: string;
   kund: Kund;
   ersattning: Ersattning[];
 }
@@ -63,7 +63,7 @@ export const Beslutsutfall = {
 };
 
 export interface BackendResponse {
-  kundbehovsflode_id: string;
+  handlaggning_id: string;
   kund: {
     efternamn: string;
     fornamn: string;

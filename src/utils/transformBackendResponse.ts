@@ -47,7 +47,7 @@ export function transformBackendResponse(
   }));
 
   return {
-    kundbehovsflodeId: backendData.kundbehovsflode_id,
+    handlaggningId: backendData.handlaggning_id,
     kund,
     ersattning,
   };

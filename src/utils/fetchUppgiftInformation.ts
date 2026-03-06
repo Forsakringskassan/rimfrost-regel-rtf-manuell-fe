@@ -3,14 +3,14 @@ import { handleSlashes } from "./handleSlashes.js";
 import { transformBackendResponse } from "./transformBackendResponse.js";
 
 export async function fetchUppgiftInformation(
-  kundbehovsflodeId: string,
+  handlaggningId: string,
   regeltyp: string,
 ) {
   const store = useProductStore();
   const bffUrl = import.meta.env.VITE_BFF_URL ?? "";
   
   try {
-    const url = `${bffUrl}/api/${handleSlashes(regeltyp).join('/')}/${kundbehovsflodeId}`;
+    const url = `${bffUrl}/api/${handleSlashes(regeltyp).join('/')}/${handlaggningId}`;
     const response = await fetch(url);
 
     const contentType = response.headers.get("content-type");
