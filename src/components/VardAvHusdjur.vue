@@ -6,8 +6,8 @@ import { fetchUppgiftInformation } from "../utils/fetchUppgiftInformation";
 import { fetchUppgiftsbeskrivning } from "../utils/fetchUppgiftsbeskrivning";
 import ListaDatum from "./ListaDatum.vue";
 
-const { kundbehovsflodeId, regeltyp } = defineProps<{
-  kundbehovsflodeId?: string | null;
+const { handlaggningId, regeltyp } = defineProps<{
+  handlaggningId?: string | null;
   regeltyp: string | null;
 }>();
 
@@ -24,7 +24,7 @@ const handleTooltipOpen = () => {
 };
 
 onMounted(() => {
-  fetchUppgiftInformation(kundbehovsflodeId ?? "", regeltyp ?? "");
+  fetchUppgiftInformation(handlaggningId ?? "", regeltyp ?? "");
   store.setRegeltyp(regeltyp ?? "");
 });
 </script>
