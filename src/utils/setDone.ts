@@ -1,11 +1,11 @@
 import { useProductStore } from "../stores/VAHStore";
-import { handleSlashes } from "./handleSlashes";
+
 
 export async function setDone() {
     const store = useProductStore();
     if (!store.uppgift?.ersattning) return;
 
-    const url = `/api/${handleSlashes(store.regeltyp).join('/')}/${store.uppgift?.handlaggningId}/patchErsattning`;
+    const url = `/api/${store.uppgift?.handlaggningId}/patchErsattning`;
     try {
         const response = await fetch(url, {
             method: 'POST',

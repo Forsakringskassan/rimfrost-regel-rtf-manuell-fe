@@ -6,15 +6,12 @@ import { fetchUppgiftInformation } from "../utils/fetchUppgiftInformation";
 import { fetchUppgiftsbeskrivning } from "../utils/fetchUppgiftsbeskrivning";
 import ListaDatum from "./ListaDatum.vue";
 
-const { handlaggningId, regeltyp } = defineProps<{
+const { handlaggningId } = defineProps<{
   handlaggningId?: string | null;
-  regeltyp: string | null;
 }>();
 
 const store = useProductStore();
 const isDescriptionFetched = ref(false);
-
-store.setRegeltyp(regeltyp ?? "");
 
 const handleTooltipOpen = () => {
   if (!isDescriptionFetched.value && !store.descriptionLoading) {
@@ -24,8 +21,7 @@ const handleTooltipOpen = () => {
 };
 
 onMounted(() => {
-  fetchUppgiftInformation(handlaggningId ?? "", regeltyp ?? "");
-  store.setRegeltyp(regeltyp ?? "");
+  fetchUppgiftInformation(handlaggningId ?? "");
 });
 </script>
 
