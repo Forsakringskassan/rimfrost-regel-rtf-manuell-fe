@@ -1,5 +1,4 @@
 import { useProductStore } from "../stores/VAHStore.js";
-import { handleSlashes } from "./handleSlashes.js";
 
 export async function fetchUppgiftInformation(
   handlaggningId: string,
