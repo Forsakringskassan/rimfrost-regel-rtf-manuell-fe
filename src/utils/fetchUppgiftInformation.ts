@@ -1,6 +1,5 @@
 import { useProductStore } from "../stores/VAHStore.js";
 import { handleSlashes } from "./handleSlashes.js";
-import { transformBackendResponse } from "./transformBackendResponse.js";
 
 export async function fetchUppgiftInformation(
   handlaggningId: string,
@@ -32,10 +31,8 @@ export async function fetchUppgiftInformation(
       throw new Error(`Response is not JSON. Got: ${text.substring(0, 100)}`);
     }
 
-  // This functionality should be moved to the BFF (transformBackendResponse), so that the data has the correct shape already when it reaches the frontend.
     const backendData = await response.json();
-    const transformedData = transformBackendResponse(backendData);
-    store.setUppgift(transformedData);
+    store.setUppgift(backendData);
   } catch (error) {
     console.error("Error fetching uppgift information:", error);
     return null;
