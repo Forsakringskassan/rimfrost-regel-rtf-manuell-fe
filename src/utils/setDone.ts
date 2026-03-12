@@ -1,11 +1,14 @@
 import { useProductStore } from "../stores/VAHStore";
 
-
 export async function setDone() {
     const store = useProductStore();
-    if (!store.uppgift?.ersattning) return;
+    if (!store.uppgift?.ersattning || !store.uppgift?.handlaggningId) {
+        console.log(`Store ersattning: ${store.uppgift?.ersattning}, handlaggningId: ${store.uppgift?.handlaggningId}`);
+        console.error("Cannot set done: ersattning or handlaggningId is missing");
+        return;
+    }
 
-    const url = `/api/${store.uppgift?.handlaggningId}/patchErsattning`;
+    const url = `/api/${store.uppgift.handlaggningId}/patchErsattning`;
     try {
         const response = await fetch(url, {
             method: 'POST',

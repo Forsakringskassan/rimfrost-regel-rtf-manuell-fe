@@ -31,6 +31,7 @@ export async function fetchUppgiftInformation(
 
     const backendData = await response.json();
     store.setUppgift(backendData);
+    console.log("Fetched uppgift information:", backendData);
   } catch (error) {
     console.error("Error fetching uppgift information:", error);
     return null;

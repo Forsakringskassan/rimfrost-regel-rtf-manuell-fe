@@ -5,7 +5,7 @@ const props = defineProps<{
   handlaggningId: string;
 }>();
 
-const handlaggningId = props.handlaggningId || import.meta.env.VITE_DEV_handlaggning_ID;
+const handlaggningId = props.handlaggningId || import.meta.env.VITE_DEV_HANDLAGGNING_ID;
 </script>
 
 <template>
