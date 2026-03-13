@@ -62,37 +62,5 @@ export const Beslutsutfall = {
   FU: "FU",
 };
 
-export interface BackendResponse {
-  handlaggning_id: string;
-  kund: {
-    efternamn: string;
-    fornamn: string;
-    kon: string;
-    anstallning: {
-      organisationsnummer: string;
-      organisationsnamn: string;
-      arbetstid_procent: number;
-      anstallningsdag: string;
-      sista_anstallningsdag: string | null;
-      lon: {
-        lonesumma: number;
-        from: string;
-        tom: string | null;
-      };
-    };
-  };
-  ersattning: Array<{
-    ersattning_id: string;
-    ersattningstyp: string;
-    omfattning_procent: number;
-    belopp: number;
-    berakningsgrund: number;
-    beslutsutfall: string | null;
-    avslagsanledning: string | null;
-    from: string;
-    tom: string;
-  }>;
-}
-
 export type KonEnum = (typeof KonEnum)[keyof typeof KonEnum];
 export type Beslutsutfall = (typeof Beslutsutfall)[keyof typeof Beslutsutfall];

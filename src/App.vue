@@ -2,17 +2,15 @@
 import VardAvHusdjur from './components/VardAvHusdjur.vue';
 
 const props = defineProps<{
-  regeltyp: string;
   handlaggningId: string;
 }>();
 
-const regeltyp = props.regeltyp || import.meta.env.VITE_DEV_REGELTYP;
-const handlaggningId = props.handlaggningId || import.meta.env.VITE_DEV_handlaggning_ID;
+const handlaggningId = props.handlaggningId || import.meta.env.VITE_DEV_HANDLAGGNING_ID;
 </script>
 
 <template>
   <div>
-    <VardAvHusdjur :regeltyp="regeltyp" :handlaggning-id="handlaggningId" />
+    <VardAvHusdjur :handlaggning-id="handlaggningId" />
   </div>
 </template>
 

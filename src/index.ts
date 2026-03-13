@@ -9,7 +9,7 @@ import AppComponent from "./App.vue";
 
 export function init(
   mount: string | Element,
-  params?: { handlaggningId?: string; regeltyp?: string },
+  params?: { handlaggningId?: string; },
 ): App {
   const container =
     typeof mount === "string" ? document.querySelector(mount) : mount;
@@ -30,7 +30,7 @@ export function init(
 
   const app = createApp(AppComponent, {
     handlaggningId: params?.handlaggningId ?? null,
-    regeltyp: params?.regeltyp ?? null,
+
   });
 
   app.use(ValidationPlugin);

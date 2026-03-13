@@ -1,15 +1,13 @@
 import { useProductStore } from "../stores/VAHStore.js";
-import { handleSlashes } from "./handleSlashes.js";
 
 export async function fetchUppgiftInformation(
   handlaggningId: string,
-  regeltyp: string,
 ) {
   const store = useProductStore();
   const bffUrl = import.meta.env.VITE_BFF_URL ?? "";
   
   try {
-    const url = `${bffUrl}/api/${handleSlashes(regeltyp).join('/')}/${handlaggningId}`;
+    const url = `${bffUrl}/api/task/${handlaggningId}`;
     const response = await fetch(url);
 
     const contentType = response.headers.get("content-type");
@@ -33,6 +31,7 @@ export async function fetchUppgiftInformation(
 
     const backendData = await response.json();
     store.setUppgift(backendData);
+    console.log("Fetched uppgift information:", backendData);
   } catch (error) {
     console.error("Error fetching uppgift information:", error);
     return null;

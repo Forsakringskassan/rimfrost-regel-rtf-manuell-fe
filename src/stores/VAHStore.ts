@@ -4,7 +4,6 @@ import type { GetDataResponse } from "../types.js";
 export const useProductStore = defineStore("VAHStore", {
   state: () => ({
     uppgift: null as GetDataResponse | null,
-    regeltyp: "",
     loading: false,
     error: null as string | null,
     uppgiftsbeskrivning: "",
@@ -14,9 +13,6 @@ export const useProductStore = defineStore("VAHStore", {
     setUppgift(uppgift: GetDataResponse | null) {
       this.uppgift = uppgift;
       this.error = null;
-    },
-    setRegeltyp(regeltyp: string) {
-      this.regeltyp = regeltyp;
     },
     setLoading(loading: boolean) {
       this.loading = loading;
