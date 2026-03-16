@@ -45,7 +45,7 @@ onMounted(async () => {
         </template>
           <template #body>
             <span v-if="store.descriptionLoading">
-              <f-loader :show="true" style="display: block !important; margin-top: 2rem !important; min-height: 6.25rem;">
+              <f-loader :show="store.descriptionLoading" :delay="true" style="margin-top: 2rem !important; min-height: 6.25rem;">
                 Vänligen vänta
               </f-loader>
             </span>
@@ -61,7 +61,7 @@ onMounted(async () => {
     </f-static-field>
   </div>
   <div>
-    <f-loader :show="isInfoLoading" style="display: block !important; margin-top: 7rem !important; min-height: 6.25rem;">
+    <f-loader :show="isInfoLoading" :delay="true" style="margin-top: 7rem !important; min-height: 6.25rem;">
       Vänligen vänta
     </f-loader>
     <div v-if="!isInfoLoading" class="arende-information">
