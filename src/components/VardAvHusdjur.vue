@@ -12,6 +12,7 @@ const { handlaggningId } = defineProps<{
 
 const store = useProductStore();
 const isDescriptionFetched = ref(false);
+const isInfoLoading = ref(true);
 
 const handleTooltipOpen = () => {
   if (!isDescriptionFetched.value && !store.descriptionLoading) {
@@ -20,8 +21,10 @@ const handleTooltipOpen = () => {
   }
 };
 
-onMounted(() => {
-  fetchUppgiftInformation(handlaggningId ?? "");
+onMounted(async () => {
+  isInfoLoading.value = true;
+  await fetchUppgiftInformation(handlaggningId ?? "");
+  isInfoLoading.value = false;
 });
 </script>
 
@@ -42,7 +45,9 @@ onMounted(() => {
         </template>
           <template #body>
             <span v-if="store.descriptionLoading">
-              <f-loader>Vänligen vänta</f-loader>
+              <f-loader :show="true" style="display: block !important; margin-top: 2rem !important; min-height: 6.25rem;">
+                Vänligen vänta
+              </f-loader>
             </span>
             <span v-else-if="store.uppgiftsbeskrivning">
               {{ store.uppgiftsbeskrivning }}
@@ -56,7 +61,10 @@ onMounted(() => {
     </f-static-field>
   </div>
   <div>
-    <div class="arende-information">
+    <f-loader :show="isInfoLoading" style="display: block !important; margin-top: 7rem !important; min-height: 6.25rem;">
+      Vänligen vänta
+    </f-loader>
+    <div v-if="!isInfoLoading" class="arende-information">
       <f-static-field>
         <template #label><span>Kund</span></template>
         <template #default>
