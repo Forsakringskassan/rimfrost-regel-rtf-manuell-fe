@@ -23,6 +23,10 @@ export async function setDone() {
             console.error(`Backend error: ${errorText}`);
             throw new Error('backend-error');
         }
+
+        window.dispatchEvent(new CustomEvent('rtf-manuell-task-done', {
+            detail: { handlaggningId: store.uppgift.handlaggningId },
+        }));
     } catch (error) {
         console.error("Error posting to backend:", error);
     }
