@@ -1,12 +1,12 @@
-import type { Ersattning } from "../types";
+import type { Ersattningar } from "../types";
 
-export function sortDates(ersattningar: Ersattning[]) {
+export function sortDates(ersattningar: Ersattningar[]) {
     const sortedDates = [...ersattningar].sort((a, b) => {
         return new Date(a.from).getTime() - new Date(b.from).getTime();
     });
 
-    const result: Ersattning[][] = [];
-    let currentGroup: Ersattning[] = [];
+    const result: Ersattningar[][] = [];
+    let currentGroup: Ersattningar[] = [];
 
     for (let i = 0; i < sortedDates.length; i++) {
         const current = sortedDates[i];

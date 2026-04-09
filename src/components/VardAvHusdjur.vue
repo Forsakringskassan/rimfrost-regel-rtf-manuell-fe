@@ -93,8 +93,8 @@ onMounted(async () => {
           <span>012 345 67 89</span>
         </template>
       </f-static-field>
+      <ListaDatum />
     </div>
-    <ListaDatum />
   </div>
 </template>
 
