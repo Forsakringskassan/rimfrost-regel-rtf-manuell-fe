@@ -2,7 +2,7 @@
 import { reactive, ref, watch } from "vue";
 import { FButton, FFieldset, FRadioField, FValidationForm } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
-import type { Ersattning } from "../types";
+import type { Ersattningar } from "../types";
 import { setDone } from "../utils/setDone";
 
 const store = useProductStore();
@@ -11,10 +11,10 @@ const selections = reactive<Record<string, "JA" | "NEJ" | undefined>>({});
 const loading = ref(false);
 
 watch(
-  () => store.uppgift?.ersattning,
-  (ersattning) => {
-    if (ersattning) {
-      ersattning.forEach((item: Ersattning) => {
+  () => store.uppgift?.ersattningar,
+  (ersattningar) => {
+    if (ersattningar) {
+      ersattningar.forEach((item: Ersattningar) => {
         if (item.beslutsutfall) {
           selections[item.ersattningId] = item.beslutsutfall as "JA" | "NEJ";
         }
@@ -26,8 +26,8 @@ watch(
 
 function handleSubmit() {
   // Sync selections to store.uppgift.ersattning before sending
-  if (store.uppgift?.ersattning) {
-    store.uppgift.ersattning.forEach((item) => {
+  if (store.uppgift?.ersattningar) {
+    store.uppgift.ersattningar.forEach((item) => {
       if (selections[item.ersattningId]) {
         item.beslutsutfall = selections[item.ersattningId];
       }
@@ -40,13 +40,13 @@ function handleSubmit() {
 </script>
 
 <template>
-  <div v-if="store.uppgift?.ersattning">
+  <div v-if="store.uppgift?.ersattningar">
     <f-validation-form @submit.prevent="handleSubmit">
       <template #error-message>
         <p>Du har glömt fylla i något. Gå till fältet som är markerat.</p>
       </template>
       <div
-        v-for="item in store.uppgift?.ersattning"
+        v-for="item in store.uppgift?.ersattningar"
         :key="item.ersattningId"
         class="radio-container"
       >

@@ -1,7 +1,7 @@
 export interface GetDataResponse {
   handlaggningId: string;
   kund: Kund;
-  ersattning: Ersattning[];
+  ersattningar: Ersattningar[];
 }
 
 export interface PatchDataRequest {
@@ -21,7 +21,7 @@ export interface Kund {
 export interface KundData {
   handlaggningId: string;
   kund: Kund;
-  ersattning: Ersattning[];
+  ersattningar: Ersattningar[];
 }
 
 export interface Anstallning {
@@ -30,16 +30,9 @@ export interface Anstallning {
   sistaAnstallningsdag?: string | null;
   organisationsnamn: string;
   organisationsnummer: string;
-  lon: Lon;
 }
 
-export interface Lon {
-  from: string;
-  tom?: string | null;
-  lonesumma: number;
-}
-
-export interface Ersattning {
+export interface Ersattningar {
   ersattningId: string;
   ersattningstyp: string;
   omfattningProcent: number;

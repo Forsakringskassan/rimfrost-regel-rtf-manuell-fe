@@ -2,20 +2,20 @@ import { useProductStore } from "../stores/VAHStore";
 
 export async function setDone() {
     const store = useProductStore();
-    if (!store.uppgift?.ersattning || !store.uppgift?.handlaggningId) {
-        console.log(`Store ersattning: ${store.uppgift?.ersattning}, handlaggningId: ${store.uppgift?.handlaggningId}`);
-        console.error("Cannot set done: ersattning or handlaggningId is missing");
+    if (!store.uppgift?.ersattningar || !store.uppgift?.handlaggningId) {
+        console.log(`Store ersattningar: ${store.uppgift?.ersattningar}, handlaggningId: ${store.uppgift?.handlaggningId}`);
+        console.error("Cannot set done: ersattningar or handlaggningId is missing");
         return;
     }
 
-    const url = `/api/${store.uppgift.handlaggningId}/patchErsattning`;
+    const url = `/api/${store.uppgift.handlaggningId}/patchErsattningar`;
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ ersattning: store.uppgift.ersattning }),
+            body: JSON.stringify({ ersattningar: store.uppgift.ersattningar }),
         });
 
         if (!response.ok) {
@@ -24,7 +24,7 @@ export async function setDone() {
             throw new Error('backend-error');
         }
 
-        window.dispatchEvent(new CustomEvent('rtf-manuell-task-done', {
+        window.dispatchEvent(new CustomEvent('task-done', {
             detail: { handlaggningId: store.uppgift.handlaggningId },
         }));
     } catch (error) {
