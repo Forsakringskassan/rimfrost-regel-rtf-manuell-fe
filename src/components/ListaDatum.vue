@@ -58,13 +58,13 @@ function handleSubmit() {
           <template #label>
             <div class="ersattning-info-container">
               <div class="ersattning-info-item">
-                <p>Datum:</p>
+                <p class="visual-label" data-label="Datum:"></p>
                 <span>{{ item.from }}</span
                 ><span v-if="item.from != item.tom"> - {{ item.tom }}</span>
               </div>
               <div class="ersattning-info-item">
-                <p>Omfattning:</p>
-                <span>{{ item.omfattningProcent ?? 100 }}%</span>
+                <p class="visual-label" data-label="Omfattning:"></p>
+                <span class="visual-value" :data-value="`${item.omfattningProcent ?? 100}%`"></span>
               </div>
             </div>
           </template>
@@ -160,6 +160,14 @@ function handleSubmit() {
 .ersattning-info-item {
   display: flex;
   gap: 0.5rem;
+}
+
+.visual-label::before {
+  content: attr(data-label);
+}
+
+.visual-value::before {
+  content: attr(data-value);
 }
 
 .error-list {
