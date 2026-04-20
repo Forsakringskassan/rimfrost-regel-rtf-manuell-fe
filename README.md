@@ -67,8 +67,24 @@ Run host frontend which will load this via Module Federation
 ### Environment Variables
 
 ```env
+# Development (.env)
 VITE_BFF_URL=http://localhost:9002
 ```
+
+In Docker containers, set `RUNTIME_BFF_URL` instead — it is injected into `window._env_` at startup by `env.sh` and takes precedence over the build-time value.
+
+## Docker
+
+```bash
+docker build -t rimfrost-rtf-manuell-fe .
+docker run -p 8080:8080 \
+  -e RUNTIME_BFF_URL=https://rtf-manuell-bff.example.com \
+  rimfrost-rtf-manuell-fe
+```
+
+| Variable | Purpose |
+|---|---|
+| `RUNTIME_BFF_URL` | URL of the RTF Manuell BFF, as seen from the **browser** |
 
 ## Tech Stack
 

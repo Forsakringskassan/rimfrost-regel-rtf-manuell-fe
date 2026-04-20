@@ -1,10 +1,11 @@
+import { env } from "../config/env.js";
 import { useProductStore } from "../stores/VAHStore.js";
 
 export async function fetchUppgiftInformation(
   handlaggningId: string,
 ) {
   const store = useProductStore();
-  const bffUrl = import.meta.env.VITE_BFF_URL ?? "";
+  const bffUrl = env.bffUrl;
   
   try {
     const url = `${bffUrl}/api/task/${handlaggningId}`;

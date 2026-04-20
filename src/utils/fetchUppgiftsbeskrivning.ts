@@ -1,3 +1,4 @@
+import { env } from "../config/env.js";
 import { useProductStore } from "../stores/VAHStore.js";
 
 export async function fetchUppgiftsbeskrivning(uppgiftstyp: string) {
@@ -5,7 +6,7 @@ export async function fetchUppgiftsbeskrivning(uppgiftstyp: string) {
   store.setDescriptionLoading(true);
 
   try {
-    const url = `${import.meta.env.VITE_BFF_URL}/api/uppgiftsbeskrivning/${uppgiftstyp}`;
+    const url = `${env.bffUrl}/api/uppgiftsbeskrivning/${uppgiftstyp}`;
     const response = await fetch(url);
 
     if (!response.ok) {
