@@ -1,3 +1,4 @@
+import { env } from "../config/env";
 import { useProductStore } from "../stores/VAHStore";
 
 export async function setDone() {
@@ -8,14 +9,14 @@ export async function setDone() {
         return;
     }
 
-    const url = `/api/${store.uppgift.handlaggningId}/patchErsattningar`;
+    const url = `${env.bffUrl}/api/patchErsattningar`;
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ ersattningar: store.uppgift.ersattningar }),
+            body: JSON.stringify({ handlaggningId: store.uppgift.handlaggningId, ersattningar: store.uppgift.ersattningar }),
         });
 
         if (!response.ok) {

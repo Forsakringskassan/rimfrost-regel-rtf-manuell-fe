@@ -1,12 +1,17 @@
 import { useProductStore } from "../stores/VAHStore.js";
+import { env } from "../config/env";
 
 export async function fetchUppgiftsbeskrivning(uppgiftstyp: string) {
   const store = useProductStore();
   store.setDescriptionLoading(true);
 
   try {
-    const url = `${import.meta.env.VITE_BFF_URL}/api/uppgiftsbeskrivning/${uppgiftstyp}`;
-    const response = await fetch(url);
+    const url = `${env.bffUrl}/api/uppgiftsbeskrivning`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ uppgiftstyp }),
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

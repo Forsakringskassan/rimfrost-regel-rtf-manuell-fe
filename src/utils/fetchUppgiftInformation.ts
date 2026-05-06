@@ -1,14 +1,19 @@
 import { useProductStore } from "../stores/VAHStore.js";
+import { env } from "../config/env";
 
 export async function fetchUppgiftInformation(
   handlaggningId: string,
 ) {
   const store = useProductStore();
-  const bffUrl = import.meta.env.VITE_BFF_URL ?? "";
+  const bffUrl = env.bffUrl;
   
   try {
-    const url = `${bffUrl}/api/task/${handlaggningId}`;
-    const response = await fetch(url);
+    const url = `${bffUrl}/api/task`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ handlaggningId }),
+    });
 
     const contentType = response.headers.get("content-type");
 
