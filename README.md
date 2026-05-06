@@ -28,7 +28,7 @@ This micro-frontend operates within a larger ecosystem:
 
 - `./VardAvHusdjur` - Main RTF manual rule component
 
-**Consumed by:** rimfrost-portal-handlaggare via remote entry at port 3031
+**Consumed by:** rimfrost-portal-handlaggare via `mf-manifest.json` at port 3031
 
 ### Registration with the Portal
 
@@ -40,21 +40,16 @@ This micro frontend is registered in the portal's `public/route-manifest.json`:
     "rtf-manuell": {
       "scope": "remoteApp",
       "module": "VardAvHusdjur",
-      "devEntry": "http://localhost:3031/assets/remoteEntry.js",
-      "prodEntry": "https://your-prod-url.example.com/assets/remoteEntry.js"
+      "devEntry": "http://localhost:3031/mf-manifest.json",
+      "prodEntry": "https://your-prod-url.example.com/mf-manifest.json"
     }
   }
 }
 ```
 
-In **production**, updating this ConfigMap entry is enough to register or update the remote — no portal rebuild required. The portal reads the manifest at runtime and loads the remote dynamically via Module Federation.
+Updating this entry is the **only** change needed to register or update the remote — no portal rebuild required in any environment. The portal fetches the manifest at runtime and loads the remote dynamically via `@module-federation/vite`.
 
-In **development**, the portal also needs:
-- An entry in `devImporters` in `src/utils/loadRemoteModule.ts`
-- A type declaration in `src/federation.d.ts`
-- A dev server restart
-
-See the portal README for the full steps.
+In **development**, start this app's dev server and refresh the portal. No changes to `loadRemoteModule.ts`, `federation.d.ts`, or any other portal source file are needed.
 
 ## Fallback Strategy
 
@@ -85,7 +80,7 @@ npm run dev
 ```
 
 **Standalone Testing:**
-Run at `http://localhost:3032` with mock data via App.vue
+Run at `http://localhost:3031` with mock data via App.vue
 
 **Integrated Testing:**
 Run host frontend which will load this via Module Federation
@@ -149,7 +144,7 @@ volumes:
 ## Tech Stack
 
 - Vue 3 + TypeScript
-- Vite with Module Federation
+- Vite with `@module-federation/vite`
 - Pinia for state management
 - FKUI design system
 - Integrated with Rule BFF for data
