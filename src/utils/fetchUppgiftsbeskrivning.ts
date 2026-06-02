@@ -6,11 +6,9 @@ export async function fetchUppgiftsbeskrivning(uppgiftstyp: string) {
   store.setDescriptionLoading(true);
 
   try {
-    const url = `${env.bffUrl}/api/uppgiftsbeskrivning`;
+    const url = `${env.bffUrl}/api/uppgiftsbeskrivning/${uppgiftstyp}`;
     const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ uppgiftstyp }),
+      method: "GET",
     });
 
     if (!response.ok) {
