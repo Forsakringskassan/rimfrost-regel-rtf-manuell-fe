@@ -9,14 +9,14 @@ export async function setDone() {
         return;
     }
 
-    const url = `${env.bffUrl}/api/patchErsattningar`;
+    const url = `${env.bffUrl}/api/${store.uppgift.handlaggningId}/patchErsattningar`;
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ handlaggningId: store.uppgift.handlaggningId, ersattningar: store.uppgift.ersattningar }),
+            body: JSON.stringify({ ersattningar: store.uppgift.ersattningar }),
         });
 
         if (!response.ok) {
