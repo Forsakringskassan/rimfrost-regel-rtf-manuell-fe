@@ -22,7 +22,8 @@ export async function setDone() {
         if (!response.ok) {
             const errorText = await response.text();
             console.error(`Backend error: ${errorText}`);
-            throw new Error('backend-error');
+            store.setError("Kunde inte spara ersättningar. Försök igen senare.");
+            return;
         }
 
         window.dispatchEvent(new CustomEvent('task-done', {
@@ -30,5 +31,6 @@ export async function setDone() {
         }));
     } catch (error) {
         console.error("Error posting to backend:", error);
+        store.setError("Kunde inte spara ersättningar. Försök igen senare.");
     }
 }
