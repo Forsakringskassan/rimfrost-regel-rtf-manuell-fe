@@ -52,6 +52,9 @@ onMounted(async () => {
             <span v-else-if="store.uppgiftsbeskrivning">
               {{ store.uppgiftsbeskrivning }}
             </span>
+            <span v-else-if="store.descriptionError">
+              Kunde inte hämta uppgiftsbeskrivningen.
+            </span>
             <span v-else>
               Ingen beskrivning tillgänglig.
             </span>
@@ -64,6 +67,7 @@ onMounted(async () => {
     <f-loader :show="isInfoLoading" :delay="true" style="margin-top: 7rem !important; min-height: 6.25rem;">
       Vänligen vänta
     </f-loader>
+    <p v-if="store.error" class="error-message">{{ store.error }}</p>
     <div v-if="!isInfoLoading" class="arende-information">
       <f-static-field>
         <template #label><span>Kund</span></template>
@@ -99,6 +103,11 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+}
+
 .output-field {
   display: flex;
   flex-direction: column;

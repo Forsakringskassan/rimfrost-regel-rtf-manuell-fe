@@ -37,6 +37,7 @@ export async function fetchUppgiftInformation(
     console.log("Fetched uppgift information:", backendData);
   } catch (error) {
     console.error("Error fetching uppgift information:", error);
+    store.setError("Kunde inte hämta uppgiftsdata. Försök igen senare.");
     return null;
   }
 }
