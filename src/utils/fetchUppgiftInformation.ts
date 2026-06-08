@@ -8,11 +8,9 @@ export async function fetchUppgiftInformation(
   const bffUrl = env.bffUrl;
   
   try {
-    const url = `${bffUrl}/api/task`;
+    const url = `${bffUrl}/api/task/${handlaggningId}`;
     const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ handlaggningId }),
+      method: "GET",
     });
 
     const contentType = response.headers.get("content-type");
