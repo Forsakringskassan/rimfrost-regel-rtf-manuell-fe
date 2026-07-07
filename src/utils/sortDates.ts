@@ -20,7 +20,7 @@ export function sortDates(ersattningar: Ersattningar[]) {
             
             if (!previous) continue;
 
-            const samePercentage = current.omfattningProcent === previous.omfattningProcent;
+            const samePercentage = current.omfattning_procent === previous.omfattning_procent;
 
             const nextDay = new Date(previous.tom);
             nextDay.setDate(nextDay.getDate() + 1);

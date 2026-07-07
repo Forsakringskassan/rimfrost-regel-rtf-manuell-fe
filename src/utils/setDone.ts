@@ -3,20 +3,26 @@ import { useProductStore } from "../stores/VAHStore";
 
 export async function setDone() {
     const store = useProductStore();
-    if (!store.uppgift?.ersattningar || !store.uppgift?.handlaggningId) {
-        console.log(`Store ersattningar: ${store.uppgift?.ersattningar}, handlaggningId: ${store.uppgift?.handlaggningId}`);
-        console.error("Cannot set done: ersattningar or handlaggningId is missing");
+    if (!store.uppgift?.ersattningar || !store.uppgift?.handlaggning_id) {
+        console.log(`Store ersattningar: ${store.uppgift?.ersattningar}, handlaggning_id: ${store.uppgift?.handlaggning_id}`);
+        console.error("Cannot set done: ersattningar or handlaggning_id is missing");
         return;
     }
 
-    const url = `${env.bffUrl}/api/${store.uppgift.handlaggningId}/patchErsattningar`;
+    const url = `${env.bffUrl}/api/${store.uppgift.handlaggning_id}/patchErsattningar`;
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ ersattningar: store.uppgift.ersattningar }),
+            body: JSON.stringify({
+                ersattningar: store.uppgift.ersattningar.map((e) => ({
+                    ersattningId: e.ersattning_id,
+                    beslutsutfall: e.beslutsutfall,
+                    avslagsanledning: e.avslagsanledning ?? null,
+                })),
+            }),
         });
 
         if (!response.ok) {
@@ -27,7 +33,7 @@ export async function setDone() {
         }
 
         window.dispatchEvent(new CustomEvent('task-done', {
-            detail: { handlaggningId: store.uppgift.handlaggningId },
+            detail: { handlaggningId: store.uppgift.handlaggning_id },
         }));
     } catch (error) {
         console.error("Error posting to backend:", error);
