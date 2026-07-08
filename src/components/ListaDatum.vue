@@ -16,7 +16,7 @@ watch(
     if (ersattningar) {
       ersattningar.forEach((item: Ersattningar) => {
         if (item.beslutsutfall) {
-          selections[item.ersattningId] = item.beslutsutfall as "JA" | "NEJ";
+          selections[item.ersattning_id] = item.beslutsutfall as "JA" | "NEJ";
         }
       });
     }
@@ -28,8 +28,8 @@ function handleSubmit() {
   // Sync selections to store.uppgift.ersattning before sending
   if (store.uppgift?.ersattningar) {
     store.uppgift.ersattningar.forEach((item) => {
-      if (selections[item.ersattningId]) {
-        item.beslutsutfall = selections[item.ersattningId];
+      if (selections[item.ersattning_id]) {
+        item.beslutsutfall = selections[item.ersattning_id];
       }
     });
   }
@@ -47,13 +47,13 @@ function handleSubmit() {
       </template>
       <div
         v-for="item in store.uppgift?.ersattningar"
-        :key="item.ersattningId"
+        :key="item.ersattning_id"
         class="radio-container"
       >
         <f-fieldset
           v-validation.required
           horizontal
-          :name="`arende-utfall-${String(item.ersattningId)}`"
+          :name="`arende-utfall-${String(item.ersattning_id)}`"
         >
           <template #label>
             <div class="ersattning-info-container">
@@ -64,7 +64,7 @@ function handleSubmit() {
               </div>
               <div class="ersattning-info-item">
                 <p class="visual-label" data-label="Omfattning:"></p>
-                <span class="visual-value" :data-value="`${item.omfattningProcent ?? 100}%`"></span>
+                <span class="visual-value" :data-value="`${item.omfattning_procent ?? 100}%`"></span>
               </div>
             </div>
           </template>
@@ -79,7 +79,7 @@ function handleSubmit() {
 
           <template #default="{ sharedName }">
             <f-radio-field
-              v-model="selections[String(item.ersattningId)]"
+              v-model="selections[String(item.ersattning_id)]"
               :name="sharedName"
               value="JA"
             >
@@ -87,7 +87,7 @@ function handleSubmit() {
             </f-radio-field>
 
             <f-radio-field
-              v-model="selections[String(item.ersattningId)]"
+              v-model="selections[String(item.ersattning_id)]"
               :name="sharedName"
               value="NEJ"
             >

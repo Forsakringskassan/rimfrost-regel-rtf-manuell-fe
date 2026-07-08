@@ -1,5 +1,5 @@
 export interface GetDataResponse {
-  handlaggningId: string;
+  handlaggning_id: string;
   kund: Kund;
   ersattningar: Ersattningar[];
 }
@@ -19,23 +19,23 @@ export interface Kund {
 }
 
 export interface KundData {
-  handlaggningId: string;
+  handlaggning_id: string;
   kund: Kund;
   ersattningar: Ersattningar[];
 }
 
 export interface Anstallning {
   anstallningsdag: string;
-  arbetstidProcent: number;
-  sistaAnstallningsdag?: string | null;
+  arbetstid_procent: number;
+  sista_anstallningsdag?: string | null;
   organisationsnamn: string;
   organisationsnummer: string;
 }
 
 export interface Ersattningar {
-  ersattningId: string;
+  ersattning_id: string;
   ersattningstyp: string;
-  omfattningProcent: number;
+  omfattning_procent: number;
   belopp: number;
   berakningsgrund: number;
   beslutsutfall?: Beslutsutfall | null;
