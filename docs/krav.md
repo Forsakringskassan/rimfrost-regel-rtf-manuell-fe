@@ -49,7 +49,7 @@ RTF Manuell Frontend är en mikrofrontend som implementerar handläggarens manue
 
 - **RTFF-NFR-01.1** Mikrofrontenden ska kunna laddas in dynamiskt i handläggarportalen och ta
   emot uppgiftens identifierare som indata från värdapplikationen.
-- **RTFF-NFR-01.2** All resiliens mot bakomliggande tjänst (t.ex. reservdata vid otillgänglighet)
+- **RTFF-NFR-01.2** All backup mot bakomliggande tjänst (t.ex. reservdata vid otillgänglighet)
   ska hanteras av RTF Manuell BFF, inte av denna mikrofrontend.
 
 ---
