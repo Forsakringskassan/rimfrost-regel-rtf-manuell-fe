@@ -4,6 +4,7 @@ import { FButton, FFieldset, FRadioField, FValidationForm } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
 import type { Ersattningar } from "../types";
 import { setDone } from "../utils/setDone";
+import { useProductStore } from "../stores/VAHStore";
 
 const store = useProductStore();
 
