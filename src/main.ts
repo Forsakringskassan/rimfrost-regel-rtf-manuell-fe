@@ -1,5 +1,12 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from "vue";
+import { ValidationPlugin } from "@fkui/vue";
+import "@fkui/design";
+import "./main.scss";
+import "./style.css";
+import { createPinia } from "pinia";
+import App from "./App.vue";
 
-createApp(App).mount('#app')
+const app = createApp(App);
+app.use(ValidationPlugin);
+app.use(createPinia());
+app.mount("#app");

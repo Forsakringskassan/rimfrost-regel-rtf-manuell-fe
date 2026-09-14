@@ -1,0 +1,10 @@
+{
+  "latestErrorEvent": {
+    "code": "TYPE-001",
+    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx vue-tsc --project /Users/liswedin/Documents/rimfrost-regel-rtf-manuell-fe/node_modules/.federation/tsconfig.73ee2586d21e2521041c88768877ea2a.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
+    "args": {
+      "cmd": "npx vue-tsc --project /Users/liswedin/Documents/rimfrost-regel-rtf-manuell-fe/node_modules/.federation/tsconfig.73ee2586d21e2521041c88768877ea2a.json"
+    },
+    "timestamp": 1778058647642
+  }
+}
