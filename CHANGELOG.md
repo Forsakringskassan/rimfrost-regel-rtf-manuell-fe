@@ -2,6 +2,20 @@
 
 Changelog of rimfrost-regel-rtf-manuell-fe.
 
+## 0.0.2 (2026-09-15)
+
+### Bug Fixes
+
+-  lowercase the npm package name for GHCR image tagging ([99a0d](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/99a0dd4433563db) LisaWedin_Ductus)  
+
+### Other changes
+
+**Bump version from 0.0.0 to 0.0.1**
+
+
+[c33d1](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/c33d19f221b16b5) LisaWedin-Ductus *2026-09-15 10:46:02*
+
+
 ## 0.0.1 (2026-09-14)
 
 ### Features
