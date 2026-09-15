@@ -36,7 +36,7 @@ Ingen. Mikrofrontenden har ingen meddelandeintegration.
 | Egenskap | Beskrivning | Standardvärde |
 |---|---|---|
 | `VITE_BFF_URL` | BFF-url vid lokal utveckling | `http://localhost:9002` |
-| `RUNTIME_BFF_URL` (`window._env_`) | BFF-url vid körning i container | — |
+| `RUNTIME_BFF_URL` (`window.__RTF_MANUELL_FE_ENV__`) | BFF-url vid körning i container | — |
 | `VITE_DEV_HANDLAGGNING_ID` | Fallback-id vid fristående utvecklingsläge | — |
 
 ## Liveness

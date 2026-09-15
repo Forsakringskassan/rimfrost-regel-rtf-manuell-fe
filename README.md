@@ -99,7 +99,7 @@ VITE_DEV_HANDLAGGNING_ID=<a handlaggningId from OUL, for standalone dev testing>
 **Docker (local image testing)** — mount a `runtime-config.js` file:
 
 ```js
-window._env_ = {
+window.__RTF_MANUELL_FE_ENV__ = {
   "RUNTIME_BFF_URL": "http://your-bff-url"
 };
 ```
@@ -119,7 +119,7 @@ metadata:
   name: rtf-manuell-config
 data:
   runtime-config.js: |
-    window._env_ = {
+    window.__RTF_MANUELL_FE_ENV__ = {
       "RUNTIME_BFF_URL": "https://your-bff.internal.example.com"
     };
 ```
