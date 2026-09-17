@@ -2,6 +2,12 @@
 
 Changelog of rimfrost-regel-rtf-manuell-fe.
 
+## 0.0.3 (2026-09-15)
+
+### Bug Fixes
+
+-  namespace the runtime-config global per app ([2bf04](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/2bf04935fe287ca) LisaWedin_Ductus)  
+
 ## 0.0.2 (2026-09-15)
 
 ### Bug Fixes
