@@ -2,6 +2,20 @@
 
 Changelog of rimfrost-regel-rtf-manuell-fe.
 
+## 0.0.4 (2026-09-17)
+
+### Bug Fixes
+
+-  self-load runtime-config.js when running as a Module Federation remote ([f0f75](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/f0f7534e1a56893) LisaWedin_Ductus)  
+
+### Other changes
+
+**Merge branch 'main' of https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe**
+
+
+[51fd2](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/51fd2ffc832fc6a) LisaWedin_Ductus *2026-09-17 06:23:38*
+
+
 ## 0.0.3 (2026-09-15)
 
 ### Bug Fixes
