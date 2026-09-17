@@ -1,4 +1,4 @@
-import { env } from "../config/env";
+import { env, ensureEnvLoaded } from "../config/env";
 import { useProductStore } from "../stores/VAHStore";
 
 export async function setDone() {
@@ -9,6 +9,7 @@ export async function setDone() {
         return;
     }
 
+    await ensureEnvLoaded();
     const url = `${env.bffUrl}/api/${store.uppgift.handlaggning_id}/patchErsattningar`;
     try {
         const response = await fetch(url, {

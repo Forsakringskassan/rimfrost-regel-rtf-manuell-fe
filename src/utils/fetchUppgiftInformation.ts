@@ -1,13 +1,14 @@
 import { useProductStore } from "../stores/VAHStore.js";
-import { env } from "../config/env";
+import { env, ensureEnvLoaded } from "../config/env";
 
 export async function fetchUppgiftInformation(
   handlaggningId: string,
 ) {
   const store = useProductStore();
-  const bffUrl = env.bffUrl;
-  
+
   try {
+    await ensureEnvLoaded();
+    const bffUrl = env.bffUrl;
     const url = `${bffUrl}/api/task/${handlaggningId}`;
     const response = await fetch(url, {
       method: "GET",
