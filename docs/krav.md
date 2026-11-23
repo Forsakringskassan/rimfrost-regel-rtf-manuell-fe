@@ -11,7 +11,7 @@ RTF Manuell Frontend är en mikrofrontend som implementerar handläggarens manue
 | Aktör | Roll |
 |---|---|
 | Handläggare | Enda användarrollen; granskar och beslutar om ersättningsperioder |
-| Handläggarportalen (värdapplikation) | Laddar in denna mikrofrontend och förmedlar uppgiftens identifierare |
+| Handläggarportalen (värdapplikation) | Laddar in denna mikrofrontend och förmedlar uppgiftens identifierare och handläggarens token |
 | RTF Manuell BFF | Enda bakomliggande tjänst denna mikrofrontend anropar |
 
 ---
@@ -51,6 +51,11 @@ RTF Manuell Frontend är en mikrofrontend som implementerar handläggarens manue
   emot uppgiftens identifierare som indata från värdapplikationen.
 - **RTFF-NFR-01.2** All backup mot bakomliggande tjänst (t.ex. reservdata vid otillgänglighet)
   ska hanteras av RTF Manuell BFF, inte av denna mikrofrontend.
+- **RTFF-NFR-01.3** Mikrofrontenden ska ta emot den inloggade handläggarens token från
+  värdapplikationen och skicka den oförändrad i `Authorization`-headern på alla anrop till
+  RTF Manuell BFF.
+- **RTFF-NFR-01.4** Saknas token ska inget anrop göras till BFF:en. Saknas token, eller avvisar
+  BFF:en den (401), ska ett begripligt felmeddelande visas i stället för ärendeunderlaget.
 
 ---
 
