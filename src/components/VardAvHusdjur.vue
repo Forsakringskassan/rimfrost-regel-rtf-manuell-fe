@@ -1,16 +1,28 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { FStaticField, FTooltip, FLoader } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
 import { fetchUppgiftInformation } from "../utils/fetchUppgiftInformation";
 import { fetchUppgiftsbeskrivning } from "../utils/fetchUppgiftsbeskrivning";
 import ListaDatum from "./ListaDatum.vue";
 
-const { handlaggningId } = defineProps<{
+// `authorization` is the logged-in handläggare's token from the portal
+// (PORT-FR-03.6/03.7): the full Authorization header value, sent unchanged
+// on every BFF call. Declared directly on this exposed component — the
+// portal only passes it to remotes that declare it.
+const { handlaggningId, authorization } = defineProps<{
   handlaggningId?: string | null;
+  authorization?: string | null;
 }>();
 
 const store = useProductStore();
+// Set before onMounted fetches. The portal remounts this component when the
+// token changes; the watch keeps the store in step should it not.
+watch(
+  () => authorization,
+  (value) => store.setAuthorization(value ?? null),
+  { immediate: true },
+);
 const isDescriptionFetched = ref(false);
 const isInfoLoading = ref(true);
 
@@ -68,7 +80,7 @@ onMounted(async () => {
       Vänligen vänta
     </f-loader>
     <p v-if="store.error" class="error-message">{{ store.error }}</p>
-    <div v-if="!isInfoLoading" class="arende-information">
+    <div v-if="!isInfoLoading && store.uppgift" class="arende-information">
       <f-static-field>
         <template #label><span>Kund</span></template>
         <template #default>

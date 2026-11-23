@@ -1,4 +1,15 @@
-import { expect, gotoApp, mockBffApis, mockUppgiftData, test } from "./fixtures";
+import {
+  devAuthorization,
+  expect,
+  gotoApp,
+  mockBffApis,
+  mockUppgiftData,
+  setDevAuthorization,
+  test,
+} from "./fixtures";
+
+const SAKNAR_BEHORIGHET =
+  "Kunde inte identifiera dig som handläggare. Logga in i handläggarportalen igen och öppna uppgiften på nytt.";
 
 // Standalone smoke tests for the rtf-manuell MFE, run directly against its own
 // preview server (no Module Federation host) using VITE_DEV_HANDLAGGNING_ID as
@@ -88,5 +99,59 @@ test.describe("VardAvHusdjur", () => {
     await expect(
       page.getByText("Kunde inte hämta uppgiftsdata. Försök igen senare."),
     ).toBeVisible({ timeout: 10_000 });
+  });
+
+  test.describe("Authorization till BFF:en", () => {
+    test("skickar handläggarens token på alla tre BFF-anrop", async ({ page }) => {
+      await mockBffApis(page);
+      const authByPath = new Map<string, string | undefined>();
+      page.on("request", (req) => {
+        const path = new URL(req.url()).pathname;
+        if (path.startsWith("/api/")) {
+          authByPath.set(`${req.method()} ${path}`, req.headers()["authorization"]);
+        }
+      });
+      await gotoApp(page);
+
+      const descriptionResponse = page.waitForResponse("**/api/uppgiftsbeskrivning/VAH");
+      await page.getByRole("button", { name: /Läs mer om uppgiften/ }).click();
+      await descriptionResponse;
+
+      await page.getByText("Godkänd", { exact: true }).click();
+      const patchResponse = page.waitForResponse("**/api/*/patchErsattningar");
+      await page.getByRole("button", { name: "Klarmarkera" }).click();
+      await patchResponse;
+
+      expect(Object.fromEntries(authByPath)).toEqual({
+        [`GET /api/task/${mockUppgiftData.handlaggning_id}`]: devAuthorization,
+        "GET /api/uppgiftsbeskrivning/VAH": devAuthorization,
+        [`POST /api/${mockUppgiftData.handlaggning_id}/patchErsattningar`]: devAuthorization,
+      });
+    });
+
+    test("visar begripligt fel och anropar inte BFF:en när token saknas", async ({ page }) => {
+      await mockBffApis(page);
+      await setDevAuthorization(page, "");
+      const bffRequests: string[] = [];
+      page.on("request", (req) => {
+        if (new URL(req.url()).pathname.startsWith("/api/")) bffRequests.push(req.url());
+      });
+      await page.goto("/");
+
+      await expect(page.getByText(SAKNAR_BEHORIGHET)).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByText("Lisa Tass")).not.toBeVisible();
+
+      await page.getByRole("button", { name: /Läs mer om uppgiften/ }).click();
+      await expect(page.getByText("Kunde inte hämta uppgiftsbeskrivningen.")).toBeVisible();
+      expect(bffRequests).toEqual([]);
+    });
+
+    test("visar begripligt fel när BFF:en svarar 401", async ({ page }) => {
+      await mockBffApis(page, { status: 401 });
+      await page.goto("/");
+
+      await expect(page.getByText(SAKNAR_BEHORIGHET)).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByText("Lisa Tass")).not.toBeVisible();
+    });
   });
 });

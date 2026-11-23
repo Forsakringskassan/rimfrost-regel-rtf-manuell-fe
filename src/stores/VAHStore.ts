@@ -9,6 +9,8 @@ export const useProductStore = defineStore("VAHStore", {
     uppgiftsbeskrivning: "",
     descriptionLoading: false,
     descriptionError: false,
+    // Full Authorization header value from the portal (PORT-FR-03.6), or null.
+    authorization: null as string | null,
   }),
   actions: {
     setUppgift(uppgift: GetDataResponse | null) {
@@ -32,6 +34,9 @@ export const useProductStore = defineStore("VAHStore", {
     },
     setDescriptionError(value: boolean) {
       this.descriptionError = value;
+    },
+    setAuthorization(authorization: string | null) {
+      this.authorization = authorization;
     },
   },
 });

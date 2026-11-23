@@ -1,5 +1,5 @@
 import { useProductStore } from "../stores/VAHStore.js";
-import { env, ensureEnvLoaded } from "../config/env";
+import { bffFetch, SaknarBehorighetError, SAKNAR_BEHORIGHET_MEDDELANDE } from "./bffFetch";
 
 export async function fetchUppgiftInformation(
   handlaggningId: string,
@@ -7,10 +7,7 @@ export async function fetchUppgiftInformation(
   const store = useProductStore();
 
   try {
-    await ensureEnvLoaded();
-    const bffUrl = env.bffUrl;
-    const url = `${bffUrl}/api/task/${handlaggningId}`;
-    const response = await fetch(url, {
+    const response = await bffFetch(`/api/task/${handlaggningId}`, {
       method: "GET",
     });
 
@@ -38,7 +35,14 @@ export async function fetchUppgiftInformation(
     console.log("Fetched uppgift information:", backendData);
   } catch (error) {
     console.error("Error fetching uppgift information:", error);
-    store.setError("Kunde inte hämta uppgiftsdata. Försök igen senare.");
+    // Clear any uppgift left in the (shared) store, e.g. one fetched with a
+    // previous handläggare's token, so it is never shown with this error.
+    store.setUppgift(null);
+    store.setError(
+      error instanceof SaknarBehorighetError
+        ? SAKNAR_BEHORIGHET_MEDDELANDE
+        : "Kunde inte hämta uppgiftsdata. Försök igen senare.",
+    );
     return null;
   }
 }

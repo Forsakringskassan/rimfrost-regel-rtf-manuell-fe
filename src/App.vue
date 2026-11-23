@@ -4,14 +4,16 @@ import { env } from './config/env';
 
 const props = defineProps<{
   handlaggningId: string;
+  authorization?: string | null;
 }>();
 
 const handlaggningId = props.handlaggningId || env.devHandlaggningId;
+const authorization = props.authorization ?? (env.devAuthorization || null);
 </script>
 
 <template>
   <div>
-    <VardAvHusdjur :handlaggning-id="handlaggningId" />
+    <VardAvHusdjur :handlaggning-id="handlaggningId" :authorization="authorization" />
   </div>
 </template>
 

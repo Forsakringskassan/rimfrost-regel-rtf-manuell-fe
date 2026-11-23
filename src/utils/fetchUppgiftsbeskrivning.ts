@@ -1,14 +1,12 @@
 import { useProductStore } from "../stores/VAHStore.js";
-import { env, ensureEnvLoaded } from "../config/env";
+import { bffFetch } from "./bffFetch";
 
 export async function fetchUppgiftsbeskrivning(uppgiftstyp: string) {
   const store = useProductStore();
   store.setDescriptionLoading(true);
 
   try {
-    await ensureEnvLoaded();
-    const url = `${env.bffUrl}/api/uppgiftsbeskrivning/${uppgiftstyp}`;
-    const response = await fetch(url, {
+    const response = await bffFetch(`/api/uppgiftsbeskrivning/${uppgiftstyp}`, {
       method: "GET",
     });
 

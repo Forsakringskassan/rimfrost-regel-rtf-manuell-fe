@@ -7,6 +7,24 @@ export { expect };
 // Federation) — see src/App.vue and src/config/env.ts.
 export const devHandlaggningId = "00be1ee0-5ffd-4394-bec2-4634770d9351";
 
+// Stands in for the token the portal passes as the `authorization` prop. The
+// standalone app reads it from RUNTIME_DEV_AUTHORIZATION — see src/App.vue.
+export const devAuthorization = "Bearer test-typ:test-varde";
+
+// Serves this app's runtime-config.js with the given dev token, so a test
+// decides whether there is a token regardless of the developer's .env
+// ("" means none). Must be called before page.goto.
+export async function setDevAuthorization(page: Page, authorization: string) {
+  await page.route("**/runtime-config.js", async (route) => {
+    await route.fulfill({
+      contentType: "application/javascript",
+      body: `window.__RTF_MANUELL_FE_ENV__ = ${JSON.stringify({
+        RUNTIME_DEV_AUTHORIZATION: authorization,
+      })};`,
+    });
+  });
+}
+
 // GetDataResponse shape, snake_case — passed through by the backend unchanged
 // (captured live against the local minikube regel-rtf-manuell service).
 export const mockUppgiftData = {
@@ -42,6 +60,7 @@ export async function mockBffApis(
   page: Page,
   data: typeof mockUppgiftData | { status: number } = mockUppgiftData,
 ) {
+  await setDevAuthorization(page, devAuthorization);
   await page.route("**/api/task/**", async (route) => {
     if ("status" in data) {
       await route.fulfill({ status: data.status });
