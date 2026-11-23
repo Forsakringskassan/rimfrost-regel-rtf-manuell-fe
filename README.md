@@ -142,7 +142,7 @@ volumes:
 |---|---|---|---|
 | BFF URL | `VITE_BFF_URL` | `RUNTIME_BFF_URL` | Rule BFF base URL |
 | Dev handler ID | `VITE_DEV_HANDLAGGNING_ID` | — | Fallback `handlaggningId` for standalone dev testing only |
-| Dev token | `VITE_DEV_AUTHORIZATION` | `RUNTIME_DEV_AUTHORIZATION` | Fallback `Authorization` value for standalone dev testing only; the host passes the real one as a prop |
+| Dev token | `VITE_DEV_AUTHORIZATION` | `RUNTIME_DEV_AUTHORIZATION` | Fallback `Authorization` value for standalone dev testing only; the host passes the real one as a prop. Never set it in a deployed environment: `runtime-config.js` is public |
 
 ## Tech Stack
 

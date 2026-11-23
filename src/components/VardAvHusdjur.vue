@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import { FStaticField, FTooltip, FLoader } from "@fkui/vue";
 import { useProductStore } from "../stores/VAHStore";
 import { fetchUppgiftInformation } from "../utils/fetchUppgiftInformation";
@@ -23,6 +23,9 @@ watch(
   (value) => store.setAuthorization(value ?? null),
   { immediate: true },
 );
+// Pinia is shared with the portal, so don't leave the token in the store
+// once this remote is gone.
+onUnmounted(() => store.setAuthorization(null));
 const isDescriptionFetched = ref(false);
 const isInfoLoading = ref(true);
 

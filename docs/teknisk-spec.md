@@ -53,7 +53,7 @@ Ingen. Mikrofrontenden har ingen meddelandeintegration.
 | `VITE_BFF_URL` | BFF-url vid lokal utveckling | `http://localhost:9002` |
 | `RUNTIME_BFF_URL` (`window.__RTF_MANUELL_FE_ENV__`) | BFF-url vid körning i container | — |
 | `VITE_DEV_HANDLAGGNING_ID` | Fallback-id vid fristående utvecklingsläge | — |
-| `VITE_DEV_AUTHORIZATION` / `RUNTIME_DEV_AUTHORIZATION` | Token (hela headervärdet) vid fristående utvecklingsläge. Ett tomt runtime-värde betyder ingen token | — |
+| `VITE_DEV_AUTHORIZATION` / `RUNTIME_DEV_AUTHORIZATION` | Token (hela headervärdet) vid fristående utvecklingsläge. Ett tomt runtime-värde betyder ingen token. Får aldrig sättas i en driftsatt miljö, eftersom `runtime-config.js` är publik | — |
 
 ## Liveness
 
