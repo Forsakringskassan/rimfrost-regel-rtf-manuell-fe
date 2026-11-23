@@ -2,6 +2,17 @@
 
 Changelog of rimfrost-regel-rtf-manuell-fe.
 
+## 0.0.5 (2026-11-23)
+
+### Bug Fixes
+
+-  trigger 1.3 release ([a43da](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/a43da8973569f8d) Ulf Slunga)  
+
+### Other changes
+
+
+## rimfrost-1_2 (2026-09-17)
+
 ## 0.0.4 (2026-09-17)
 
 ### Bug Fixes
