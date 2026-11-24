@@ -35,7 +35,7 @@ som portalen sätter till hela headervärdet (i dag `Bearer <typId>:<varde>`, PO
 Mikrofrontenden tolkar inte innehållet. Propen läggs i Pinia-storen innan första anropet.
 Portalen monterar om komponenten när handläggaren byts eller loggar ut (PORT-FR-03.7).
 
-Saknas token görs inget anrop. Saknas token, eller svarar BFF:en 401, visas
+Saknas token görs inget anrop. Saknas token, eller svarar BFF:en 401 på något anrop (även uppgiftsbeskrivningen), visas
 "Kunde inte identifiera dig som handläggare …" i stället för ärendeunderlaget, och ett
 tidigare hämtat underlag rensas ur storen (RTFF-NFR-01.4).
 

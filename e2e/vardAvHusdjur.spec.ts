@@ -146,6 +146,20 @@ test.describe("VardAvHusdjur", () => {
       expect(bffRequests).toEqual([]);
     });
 
+    test("visar begripligt fel när beskrivningsanropet svarar 401", async ({ page }) => {
+      await mockBffApis(page);
+      await page.route("**/api/uppgiftsbeskrivning/VAH", async (route) => {
+        await route.fulfill({ status: 401 });
+      });
+      await gotoApp(page);
+      await expect(page.getByText("Lisa Tass")).toBeVisible();
+
+      await page.getByRole("button", { name: /Läs mer om uppgiften/ }).click();
+      await expect(page.getByText(SAKNAR_BEHORIGHET)).toBeVisible();
+      await expect(page.getByText("Kunde inte hämta uppgiftsbeskrivningen.")).toBeVisible();
+      await expect(page.getByText("Lisa Tass")).not.toBeVisible();
+    });
+
     test("visar begripligt fel när BFF:en svarar 401", async ({ page }) => {
       await mockBffApis(page, { status: 401 });
       await page.goto("/");
