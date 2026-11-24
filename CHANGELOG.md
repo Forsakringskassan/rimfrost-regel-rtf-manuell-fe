@@ -2,6 +2,19 @@
 
 Changelog of rimfrost-regel-rtf-manuell-fe.
 
+## 0.0.6 (2026-11-24)
+
+### Bug Fixes
+
+-  show the missing-token message when the description call is rejected (FKPOC-1495) ([4d499](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/4d499303d818376) LisaWedin_Ductus)  
+-  address review comments (FKPOC-1495) ([dd204](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/dd2044ab25d3652) LisaWedin_Ductus)  
+-  send the portal's token as Authorization to the BFF (FKPOC-1495) ([09f44](https://github.com/Forsakringskassan/rimfrost-regel-rtf-manuell-fe/commit/09f44f227784ef1) LisaWedin_Ductus)  
+
+### Other changes
+
+
+## rimfrost-1_3 (2026-11-23)
+
 ## 0.0.5 (2026-11-23)
 
 ### Bug Fixes
