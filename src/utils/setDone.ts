@@ -1,5 +1,5 @@
-import { env, ensureEnvLoaded } from "../config/env";
 import { useProductStore } from "../stores/VAHStore";
+import { bffFetch, SaknarBehorighetError, SAKNAR_BEHORIGHET_MEDDELANDE } from "./bffFetch";
 
 export async function setDone() {
     const store = useProductStore();
@@ -9,10 +9,8 @@ export async function setDone() {
         return;
     }
 
-    await ensureEnvLoaded();
-    const url = `${env.bffUrl}/api/${store.uppgift.handlaggning_id}/patchErsattningar`;
     try {
-        const response = await fetch(url, {
+        const response = await bffFetch(`/api/${store.uppgift.handlaggning_id}/patchErsattningar`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,6 +36,10 @@ export async function setDone() {
         }));
     } catch (error) {
         console.error("Error posting to backend:", error);
-        store.setError("Kunde inte spara ersättningar. Försök igen senare.");
+        store.setError(
+            error instanceof SaknarBehorighetError
+                ? SAKNAR_BEHORIGHET_MEDDELANDE
+                : "Kunde inte spara ersättningar. Försök igen senare.",
+        );
     }
 }

@@ -17,6 +17,10 @@ function readRuntimeGlobal(): any {
 export const env = {
   bffUrl: readRuntimeGlobal().RUNTIME_BFF_URL || import.meta.env.VITE_BFF_URL || "",
   devHandlaggningId: readRuntimeGlobal().RUNTIME_DEV_HANDLAGGNING_ID || import.meta.env.VITE_DEV_HANDLAGGNING_ID || "",
+  // Standalone only: stands in for the token the portal passes as the
+  // `authorization` prop. `??`, not `||`, so an explicitly empty runtime value
+  // overrides .env — the e2e tests use that to run without a token.
+  devAuthorization: readRuntimeGlobal().RUNTIME_DEV_AUTHORIZATION ?? import.meta.env.VITE_DEV_AUTHORIZATION ?? "",
 };
 
 // Standalone (npm run dev / preview): index.html's own <script> tag has

@@ -1,14 +1,12 @@
 import { useProductStore } from "../stores/VAHStore.js";
-import { env, ensureEnvLoaded } from "../config/env";
+import { bffFetch, SaknarBehorighetError, SAKNAR_BEHORIGHET_MEDDELANDE } from "./bffFetch";
 
 export async function fetchUppgiftsbeskrivning(uppgiftstyp: string) {
   const store = useProductStore();
   store.setDescriptionLoading(true);
 
   try {
-    await ensureEnvLoaded();
-    const url = `${env.bffUrl}/api/uppgiftsbeskrivning/${uppgiftstyp}`;
-    const response = await fetch(url, {
+    const response = await bffFetch(`/api/uppgiftsbeskrivning/${uppgiftstyp}`, {
       method: "GET",
     });
 
@@ -32,6 +30,13 @@ export async function fetchUppgiftsbeskrivning(uppgiftstyp: string) {
     console.error("Error fetching description:", error);
     store.setUppgiftsbeskrivning("");
     store.setDescriptionError(true);
+    if (error instanceof SaknarBehorighetError) {
+      // Same as fetchUppgiftInformation (RTFF-NFR-01.4): a missing or
+      // rejected token is shown in the main area, not only in the tooltip,
+      // and the ärendeunderlag is no longer shown.
+      store.setUppgift(null);
+      store.setError(SAKNAR_BEHORIGHET_MEDDELANDE);
+    }
   } finally {
     store.setDescriptionLoading(false);
   }

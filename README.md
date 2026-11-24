@@ -17,10 +17,11 @@ This micro-frontend operates within a larger ecosystem:
 **Integration Flow:**
 
 1. **Host Integration**: Loaded by host frontend when user selects RTF manual task
-2. **Props Received**: Gets `handlaggningId` and `regeltyp` from host
+2. **Props Received**: Gets `handlaggningId` and `authorization` (the logged-in handläggare's token, the full `Authorization` header value) from host
 3. **Data Fetching**: Calls Rule BFF at `/api/regel/rtf-manuell/:handlaggningId`
-4. **Fallback Handling**: Rule BFF handles all backend failures with mock data
-5. **State Management**: Uses Pinia store for local component state
+4. **Authorization**: Every BFF call sends the host's token unchanged in the `Authorization` header (`src/utils/bffFetch.ts`). Without a token no call is made and an error message is shown
+5. **Fallback Handling**: Rule BFF handles all backend failures with mock data
+6. **State Management**: Uses Pinia store for local component state
 
 ### Module Federation
 
@@ -94,6 +95,7 @@ Config is split between local development and container deployments.
 ```env
 VITE_BFF_URL=http://localhost:9002
 VITE_DEV_HANDLAGGNING_ID=<a handlaggningId from OUL, for standalone dev testing>
+VITE_DEV_AUTHORIZATION=Bearer <typId>:<varde>
 ```
 
 **Docker (local image testing)** — mount a `runtime-config.js` file:
@@ -140,6 +142,7 @@ volumes:
 |---|---|---|---|
 | BFF URL | `VITE_BFF_URL` | `RUNTIME_BFF_URL` | Rule BFF base URL |
 | Dev handler ID | `VITE_DEV_HANDLAGGNING_ID` | — | Fallback `handlaggningId` for standalone dev testing only |
+| Dev token | `VITE_DEV_AUTHORIZATION` | `RUNTIME_DEV_AUTHORIZATION` | Fallback `Authorization` value for standalone dev testing only; the host passes the real one as a prop. Never set it in a deployed environment: `runtime-config.js` is public |
 
 ## Tech Stack
 
