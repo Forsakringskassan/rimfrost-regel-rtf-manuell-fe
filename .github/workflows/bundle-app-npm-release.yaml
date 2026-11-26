@@ -9,4 +9,4 @@ jobs:
       packages: write
       pages: write
       id-token: write
-    uses: Forsakringskassan/.github/.github/workflows/bundle-app-npm-release.yaml@7dc0edc0051d2e7b37cfbe45b51841141ee3a835 # main
+    uses: Forsakringskassan/.github/.github/workflows/bundle-app-npm-release.yaml@1c8b290ebd7bd260f75ccca9841cf9372221e231 # main
